@@ -6,54 +6,103 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(SplitText);
 
 const ViewAllButton = () => {
-  const textRef = useRef<HTMLDivElement>(null);
-  const splitRef = useRef<SplitText | null>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const textCloneRef = useRef<HTMLParagraphElement>(null);
+
+  // arrays of characters
+  let chars: HTMLElement[] = [];
+  let cloneChars: HTMLElement[] = [];
 
   useEffect(() => {
-    if (!textRef.current) return;
+    if (!textRef.current || !textCloneRef.current) return;
 
-    splitRef.current = new SplitText(textRef.current, {
+    // Split original
+    const split = new SplitText(textRef.current, {
       type: "chars",
     });
+    chars = split.chars;
 
-    gsap.set(splitRef.current.chars, {
-      display: "inline-block",
+    // Split clone
+    const splitClone = new SplitText(textCloneRef.current, {
+      type: "chars",
     });
+    cloneChars = splitClone.chars;
+
+    // position clone chars offscreen initially
+    gsap.set(cloneChars, { y: 20, opacity: 0 });
   }, []);
 
   const handleHoverEnter = () => {
-    if (!splitRef.current) return;
+    if (!chars.length || !cloneChars.length) return;
 
-    gsap.to(splitRef.current.chars, {
+    gsap.to(chars, {
       y: -20,
       opacity: 0,
-      stagger: 0.01,
-      duration: 0.4,
-      ease: "power3.out",
+      duration: 0.45,
+      ease: "power2.out",
+      stagger: {
+        each: 0.02,
+        from: "random",
+      },
+    });
+
+    gsap.to(cloneChars, {
+      y: 0,
+      opacity: 1,
+      duration: 0.45,
+      ease: "power2.out",
+      stagger: {
+        each: 0.02,
+        from: "random",
+      },
     });
   };
 
   const handleHoverLeave = () => {
-    if (!splitRef.current) return;
+    if (!chars.length || !cloneChars.length) return;
 
-    gsap.to(splitRef.current.chars, {
+    gsap.to(cloneChars, {
+      y: -20,
+      opacity: 0,
+      duration: 0.45,
+      ease: "power2.out",
+      stagger: {
+        each: 0.02,
+        from: "random",
+      },
+    });
+
+    gsap.to(chars, {
       y: 0,
       opacity: 1,
-      stagger: 0.01,
-      duration: 0.4,
-      ease: "power3.out",
+      duration: 0.45,
+      ease: "power2.out",
+      stagger: {
+        each: 0.02,
+        from: "random",
+      },
     });
   };
 
   return (
     <div
-      className="text-slate-50 border rounded-lg p-2 flex items-center gap-2 cursor-pointer"
+      className="text-slate-50 border rounded-lg p-2 flex items-center gap-4 cursor-pointer relative overflow-hidden"
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
     >
-      <p ref={textRef} className="text-lg font-medium uppercase">
+      <p
+        ref={textRef}
+        className="absolute inset-0 text-lg font-medium uppercase"
+      >
         View All Works
       </p>
+      <p
+        ref={textCloneRef}
+        className="absolute inset-0 text-lg font-medium uppercase"
+      >
+        View All Works
+      </p>
+
       <ArrowForwardIcon fontSize="inherit" />
     </div>
   );

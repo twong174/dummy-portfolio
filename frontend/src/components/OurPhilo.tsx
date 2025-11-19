@@ -3,7 +3,39 @@ import poop2 from "../assets/poop2.png";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import video from "../assets/video.png";
 
+import gsap from "gsap";
+import { useRef, useEffect } from "react";
+import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger);
+
 export const OurPhilo = () => {
+  useEffect(() => {
+    const paragraphs = gsap.utils.toArray(".scroll-in");
+
+    paragraphs.forEach((p) => {
+      const split = new SplitText(p as HTMLElement, { type: "words" });
+
+      gsap.from(split.words, {
+        yPercent: "random([-100, 100])",
+        rotation: "random([-30, 30])",
+        ease: "back.out",
+        autoAlpha: 0,
+        stagger: {
+          amount: 0.5,
+          from: "random",
+        },
+        scrollTrigger: {
+          trigger: p as HTMLElement,
+          start: "top 80%",
+          scrub: false,
+        },
+      });
+    });
+  }, []);
+
   return (
     <div className="bg-slate-200 w-full h-full p-8">
       <div className="flex items-center gap-2">
@@ -15,7 +47,7 @@ export const OurPhilo = () => {
       <div className="grid grid-cols-[40%_auto] gap-10">
         <div className="flex flex-col gap-10 w-4/5">
           <div className="flex flex-col gap-2">
-            <img src = {video}/>
+            <img src={video} />
             <div className="flex items-center justify-between">
               <p>00:58</p>
               <p>PLAY REEL</p>
@@ -36,11 +68,11 @@ export const OurPhilo = () => {
         </div>
         <div className="flex flex-col gap-20">
           <div className="text-5xl font-semibold w-4/5 flex flex-col gap-20">
-            <p>
+            <p className="scroll-in">
               Supersolid’s registered trademark is the unrivalled Return On
               Ideas we deliver for our clients.
             </p>
-            <p>
+            <p className="scroll-in">
               We believe creativity is the most powerful and profitable
               investment any organisation can make.
             </p>
@@ -59,7 +91,7 @@ export const OurPhilo = () => {
       </div>
       <div className="grid grid-cols-[60%_auto] mt-30 gap-2">
         <img src={poop} />
-        <img src={poop2}  className="w-100 self-end justify-self-end"/>
+        <img src={poop2} className="w-100 self-end justify-self-end" />
       </div>
     </div>
   );

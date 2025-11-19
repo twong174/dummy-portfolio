@@ -209,8 +209,8 @@ export const HeroSection = () => {
           </div>
 
           <div className="text-lg font-thin text-slate-50 flex items-center gap-2">
-            <Link to="/contact">
-              <FlipWord> Contact </FlipWord>
+            <Link to="/contact" className="flex">
+              <FlipWord > Contact </FlipWord>
             </Link>
             <CallMadeIcon fontSize="inherit" />
           </div>

@@ -1,4 +1,4 @@
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import TellUsButton from "../widgets/TellUsButton";
 
 export const ContactUs = () => {
   return (
@@ -15,16 +15,7 @@ export const ContactUs = () => {
           </h1>
         </div>
       </div>
-      <div className="flex items-center justify-center text-end mt-auto">
-        <div className="bg-neutral-600 w-fit p-2 rounded-xs">
-          <div className="text-slate-50 text-end">
-            <ArrowOutwardIcon fontSize="medium" />
-          </div>
-          <p className="text-slate-50 font-light text-3xl">
-            Tell us about your challenge
-          </p>
-        </div>
-      </div>
+     <TellUsButton/>
     </div>
   );
 };

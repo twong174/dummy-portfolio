@@ -29,7 +29,7 @@ const AboutPage: React.FC = () => {
             </h1>
             <div className="text-md font-thin text-slate-50 flex items-center justify-between">
               <p>[ ESTABLISHED IN 2022]</p>
-              <p>[ SCROLL DOWN TO EXPLORE ]</p>
+              <p>[ SCROLL DOWN TO EXPLORE ]</p>cd 
               <p>[ NEW YORK CITY, NY ]</p>
             </div>
           </div>

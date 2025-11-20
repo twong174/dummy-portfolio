@@ -4,12 +4,41 @@ import picture3 from "../assets/test3.png";
 import picture4 from "../assets/test4.png";
 import picture5 from "../assets/test5.png";
 import ViewAllButton from "../widgets/ViewAllButton";
+import gsap from "gsap";
+import { useRef, useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const FeaturedWorks = () => {
+  const textRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (textRef.current) {
+      gsap.fromTo(
+        textRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: textRef.current,
+            start: "top 80%",
+            end: "top 50%",
+            toggleActions: "play none none reverse",
+            markers: true, // optional, for debugging
+          },
+        }
+      );
+    }
+  }, []);
+
   return (
     <div className="p-8 flex flex-col gap-20 bg-neutral-800">
       <div className="flex h-full w-full bg-neutral-800 items-end justify-between text-slate-50">
-        <h3 className="text-7xl font-bold w-3/5">
+        <h3 className="text-7xl font-bold w-3/5" ref={textRef}>
           We work with some of the world's biggest brands and next big things.
         </h3>
 

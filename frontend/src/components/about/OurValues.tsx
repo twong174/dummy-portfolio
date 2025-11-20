@@ -1,11 +1,38 @@
 import road from "../../assets/road.jpg";
 import gsap from "gsap";
 import AddIcon from "@mui/icons-material/Add";
-import { useRef, useCallback } from "react";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { useRef, useCallback, useState } from "react";
 import ImageLiquidDistortion from "../../animations/ImageLiquidDistortion";
+
+interface ValueItem {
+  title: string;
+  description: string;
+}
+
+const values: ValueItem[] = [
+  {
+    title: "We go all in",
+    description: "We're fully committed to every project. No half measures, no shortcuts. When we take on a challenge, we give it everything we've got."
+  },
+  {
+    title: "We're not precious",
+    description: "We don't get attached to our ideas. If something isn't working, we pivot. We value progress over perfection and results over ego."
+  },
+  {
+    title: "We're ready to react",
+    description: "The world moves fast, and so do we. We're agile, responsive, and always prepared to adapt to new challenges and opportunities."
+  },
+  {
+    title: "We never settle",
+    description: "Good enough isn't good enough. We constantly push boundaries, challenge ourselves, and strive for excellence in everything we create."
+  }
+];
 
 const OurValues = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const q = gsap.utils.selector(containerRef);
 
   const handleTextHover = useCallback(
@@ -36,6 +63,45 @@ const OurValues = () => {
     [q]
   );
 
+  const toggleExpand = useCallback((index: number) => {
+    const content = contentRefs.current[index];
+    if (!content) return;
+
+    if (expandedIndex === index) {
+      // Collapse
+      gsap.to(content, {
+        height: 0,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power3.out",
+        onComplete: () => setExpandedIndex(null)
+      });
+    } else {
+      // Collapse previous if exists
+      if (expandedIndex !== null && contentRefs.current[expandedIndex]) {
+        gsap.to(contentRefs.current[expandedIndex], {
+          height: 0,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power3.out",
+        });
+      }
+
+      // Expand new
+      setExpandedIndex(index);
+      gsap.fromTo(
+        content,
+        { height: 0, opacity: 0 },
+        {
+          height: "auto",
+          opacity: 1,
+          duration: 0.4,
+          ease: "power3.out",
+        }
+      );
+    }
+  }, [expandedIndex]);
+
   return (
     <>
       <div className="w-full p-8">
@@ -51,62 +117,43 @@ const OurValues = () => {
               with.
             </p>
             <div className="flex flex-col gap-8">
-              <div className="border border-b border-black"></div>
+              {values.map((value, index) => (
+                <div key={index}>
+                  <div className="border border-b border-black"></div>
+                  
+                  <div 
+                    className="between cursor-pointer py-4"
+                    onClick={() => toggleExpand(index)}
+                  >
+                    <h2
+                      className="text-8xl font-semibold value-heading"
+                      onMouseEnter={() => handleTextHover(index)}
+                      onMouseLeave={() => handleTextLeave(index)}
+                    >
+                      {value.title}
+                    </h2>
+                    {expandedIndex === index ? (
+                      <RemoveIcon fontSize="large" />
+                    ) : (
+                      <AddIcon fontSize="large" />
+                    )}
+                  </div>
+
+                  {/* Expandable content */}
+                  <div
+                    ref={(el) => {
+                      contentRefs.current[index] = el;
+                    }}
+                    className="overflow-hidden"
+                    style={{ height: 0, opacity: 0 }}
+                  >
+                    <p className="text-2xl font-light py-8 pr-20">
+                      {value.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
               
-              {/* Value 1 */}
-              <div className="between cursor-pointer">
-                <h2
-                  className="text-8xl font-semibold value-heading"
-                  onMouseEnter={() => handleTextHover(0)}
-                  onMouseLeave={() => handleTextLeave(0)}
-                >
-                  We go all in
-                </h2>
-                <AddIcon fontSize="large" />
-              </div>
-
-              <div className="border border-b border-black"></div>
-
-              {/* Value 2 */}
-              <div className="between cursor-pointer">
-                <h2 
-                  className="text-8xl font-semibold value-heading"
-                  onMouseEnter={() => handleTextHover(1)}
-                  onMouseLeave={() => handleTextLeave(1)}
-                >
-                  We're not precious
-                </h2>
-                <AddIcon fontSize="large" />
-              </div>
-
-              <div className="border border-b border-black"></div>
-
-              {/* Value 3 */}
-              <div className="between cursor-pointer">
-                <h2 
-                  className="text-8xl font-semibold value-heading"
-                  onMouseEnter={() => handleTextHover(2)}
-                  onMouseLeave={() => handleTextLeave(2)}
-                >
-                  We're ready to react
-                </h2>
-                <AddIcon fontSize="large" />
-              </div>
-
-              <div className="border border-b border-black"></div>
-
-              {/* Value 4 */}
-              <div className="between cursor-pointer">
-                <h2 
-                  className="text-8xl font-semibold value-heading"
-                  onMouseEnter={() => handleTextHover(3)}
-                  onMouseLeave={() => handleTextLeave(3)}
-                >
-                  We never settle
-                </h2>
-                <AddIcon fontSize="large" />
-              </div>
-
               <div className="border border-b border-black"></div>
             </div>
           </div>

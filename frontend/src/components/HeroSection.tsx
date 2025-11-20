@@ -182,15 +182,14 @@ export const HeroSection = () => {
     >
       <header className="grid grid-cols-[25%_auto_25%] items-start justify-between gap-2 z-40">
         <h2 className="text-slate-50 text-3xl font-bold" ref={headingRef}>
-          We're a creative-owned agency that specialises in Super x Solid
-          outcomes.
+         A personal sandbox to experiment with creative coding
         </h2>
 
         <h2
           ref={logoRef}
           className="text-slate-50 text-3xl font-bold fixed top-8 left-8 opacity-0 z-40"
         >
-          SUPERSOLID
+          SANDBOX
         </h2>
 
         <div className=""></div>
@@ -210,7 +209,7 @@ export const HeroSection = () => {
 
           <div className="text-lg font-thin text-slate-50 flex items-center gap-2">
             <Link to="/contact" className="flex">
-              <FlipWord > Contact </FlipWord>
+              <FlipWord> Contact </FlipWord>
             </Link>
             <CallMadeIcon fontSize="inherit" />
           </div>
@@ -219,7 +218,7 @@ export const HeroSection = () => {
 
       <main className="flex items-center justify-center">
         <div className="w-full" ref={supersolidRef}>
-          <TextFlowmap text="SUPERSOLID" className="w-full" />
+          <TextFlowmap text="SANDBOX" className="w-full" />
         </div>
       </main>
 

@@ -5,7 +5,7 @@ import AboutPage from "./pages/AboutPage";
 import { useEffect } from "react";
 
 import Lenis from "@studio-freight/lenis";
-import ProjectPage from "./pages/ProjectPage";
+import ProjectPage from "./pages/projects/ProjectPage";
 import ContactPage from "./pages/ContactPage";
 import ErrorPage from "./pages/ErrorPage";
 

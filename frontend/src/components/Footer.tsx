@@ -32,7 +32,7 @@ const Footer = () => {
       opacity: 1,
       scale: 1,
       y: 0,
-      duration: 1.2,
+      duration: 1,
       ease: "power2.inOut",
     }).to(
       paragraphs,

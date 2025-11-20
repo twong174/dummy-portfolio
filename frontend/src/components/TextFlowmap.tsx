@@ -109,7 +109,7 @@ const TextFlowmap: React.FC<TextFlowmapProps> = ({
         vec3 flow = texture2D(tFlow, vUv).rgb;
         
         float flowStrength = length(flow.xy);
-        vec2 myUV = vUv - flow.xy * 0.3;
+        vec2 myUV = vUv - flow.xy * 0.6;
         
         vec4 tex = texture2D(tWater, myUV);
         

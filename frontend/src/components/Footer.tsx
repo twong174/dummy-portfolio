@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import FlipWordV2 from "../animations/FlipWordV2";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,8 +56,8 @@ const Footer = () => {
       <div className="grid grid-cols-[50%_25%_25%]">
         <div className="flex flex-col gap-12">
           <h4 className="text-3xl font-semibold w-1/2 text-slate-50">
-            A supersolid is a special quantum state of matter that’s both solid
-            and fluid at the same time.
+            A sandbox is a testing environment in a computer system in which new
+            or untested software can be run securely.
           </h4>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 text-slate-50">
@@ -64,7 +65,7 @@ const Footer = () => {
               <p className="text-xl font-medium ">Contact</p>
             </div>
             <FlipWord className="w-fit text-xl font-light text-slate-50">
-              inbox@supersolide.agency
+              email@email.com
             </FlipWord>
             <p className="w-1/2 text-xl font-light text-slate-50">
               174 Washington Street Apt 1C, Jersey City, NJ 07302
@@ -96,7 +97,7 @@ const Footer = () => {
           <p className="text-lg font-thin">Connect</p>
           <div className="mt-4 flex flex-col gap-4 text-4xl font-medium">
             <FlipWord flipValue={30}> Instagram</FlipWord>
-            <FlipWord flipValue={30}>LinkedIn</FlipWord>
+            <FlipWordV2/>
           </div>
         </div>
       </div>
@@ -105,7 +106,7 @@ const Footer = () => {
           className="text-slate-50 font-black tracking-wider text-[240px] flex items-center justify-center leading-none"
           ref={textRef}
         >
-          SUPERSOLID
+          SANDBOX
         </h1>
         <div
           className="flex items-center justify-between text-slate-50 text-sm"

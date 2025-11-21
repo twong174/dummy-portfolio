@@ -2,16 +2,22 @@ import { Link } from "react-router-dom";
 import { FlipWord } from "../animations/FlipWord";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 
-const Header = () => {
+const COLORS: Record<string, string> = { 
+  "red": "text-red-500",
+  "white": "text-slate-50",
+  "black": "text-black"
+}
+
+const Header = ({textColor}: {textColor: string}) => {
   return (
-    <header className=" flex items-center justify-between text-slate-50">
+    <header className={`flex items-center justify-between ${COLORS[textColor]}`}>
       <h2 className=" text-3xl font-bold ">
         <Link to={"/"}>SANDBOX</Link>
       </h2>
 
       <div></div>
 
-      <div className=" flex items-center justify-between gap-4 text-lg font-thin ">
+      <div className={` flex items-center justify-between gap-4 text-lg font-thin ${COLORS[textColor]}`}>
         <div className="flex items-center gap-4">
           <Link to="/work" className="flex">
             <FlipWord> Work </FlipWord>

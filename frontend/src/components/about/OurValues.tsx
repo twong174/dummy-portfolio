@@ -7,26 +7,53 @@ import ImageLiquidDistortion from "../../animations/ImageLiquidDistortion";
 
 interface ValueItem {
   title: string;
-  description: string;
+  description1: string;
+  description2: string;
+  description3: string;
+  description4: string;
 }
 
 const values: ValueItem[] = [
   {
     title: "We go all in",
-    description: "We're fully committed to every project. No half measures, no shortcuts. When we take on a challenge, we give it everything we've got."
+    description1: "We go all in, so you get the outcomes you deserve.",
+    description2:
+      "We care fiercely about the work and the people at the heart of it.",
+    description3:
+      "We dive deeper to find the challenge lurking underneath the surface-level problem. And then we solve it.",
+    description4:
+      "Our guiding philosophy of ROIdeas® ensures we deliver outcomes (not just outputs) with each and every project.",
   },
   {
     title: "We're not precious",
-    description: "We don't get attached to our ideas. If something isn't working, we pivot. We value progress over perfection and results over ego."
+    description1: "We go all in, so you get the outcomes you deserve.",
+    description2:
+      "We care fiercely about the work and the people at the heart of it.",
+    description3:
+      "We dive deeper to find the challenge lurking underneath the surface-level problem. And then we solve it.",
+    description4:
+      "Our guiding philosophy of ROIdeas® ensures we deliver outcomes (not just outputs) with each and every project.",
   },
   {
     title: "We're ready to react",
-    description: "The world moves fast, and so do we. We're agile, responsive, and always prepared to adapt to new challenges and opportunities."
+    description1: "We go all in, so you get the outcomes you deserve.",
+    description2:
+      "We care fiercely about the work and the people at the heart of it.",
+    description3:
+      "We dive deeper to find the challenge lurking underneath the surface-level problem. And then we solve it.",
+    description4:
+      "Our guiding philosophy of ROIdeas® ensures we deliver outcomes (not just outputs) with each and every project.",
   },
   {
     title: "We never settle",
-    description: "Good enough isn't good enough. We constantly push boundaries, challenge ourselves, and strive for excellence in everything we create."
-  }
+    description1: "We go all in, so you get the outcomes you deserve.",
+    description2:
+      "We care fiercely about the work and the people at the heart of it.",
+    description3:
+      "We dive deeper to find the challenge lurking underneath the surface-level problem. And then we solve it.",
+    description4:
+      "Our guiding philosophy of ROIdeas® ensures we deliver outcomes (not just outputs) with each and every project.",
+  },
 ];
 
 const OurValues = () => {
@@ -63,44 +90,45 @@ const OurValues = () => {
     [q]
   );
 
-  const toggleExpand = useCallback((index: number) => {
-    const content = contentRefs.current[index];
-    if (!content) return;
+  const toggleExpand = useCallback(
+    (index: number) => {
+      const content = contentRefs.current[index];
+      if (!content) return;
 
-    if (expandedIndex === index) {
-      // Collapse
-      gsap.to(content, {
-        height: 0,
-        opacity: 0,
-        duration: 0.4,
-        ease: "power3.out",
-        onComplete: () => setExpandedIndex(null)
-      });
-    } else {
-      // Collapse previous if exists
-      if (expandedIndex !== null && contentRefs.current[expandedIndex]) {
-        gsap.to(contentRefs.current[expandedIndex], {
+      if (expandedIndex === index) {
+        // Collapse
+        gsap.to(content, {
           height: 0,
           opacity: 0,
           duration: 0.4,
           ease: "power3.out",
+          onComplete: () => setExpandedIndex(null),
         });
-      }
-
-      // Expand new
-      setExpandedIndex(index);
-      gsap.fromTo(
-        content,
-        { height: 0, opacity: 0 },
-        {
-          height: "auto",
-          opacity: 1,
-          duration: 0.4,
-          ease: "power3.out",
+      } else {
+        if (expandedIndex !== null && contentRefs.current[expandedIndex]) {
+          gsap.to(contentRefs.current[expandedIndex], {
+            height: 0,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power3.out",
+          });
         }
-      );
-    }
-  }, [expandedIndex]);
+
+        setExpandedIndex(index);
+        gsap.fromTo(
+          content,
+          { height: 0, opacity: 0 },
+          {
+            height: "auto",
+            opacity: 1,
+            duration: 0.4,
+            ease: "power3.out",
+          }
+        );
+      }
+    },
+    [expandedIndex]
+  );
 
   return (
     <>
@@ -111,7 +139,10 @@ const OurValues = () => {
             <p className="font-light">OUR VALUES</p>
           </div>
 
-          <div ref={containerRef} className="flex flex-col gap-20 overflow-x-hidden">
+          <div
+            ref={containerRef}
+            className="flex flex-col gap-20 overflow-x-hidden"
+          >
             <p className="text-2xl font-semibold w-1/4">
               Our values shape what we are, how we work, and who we collaborate
               with.
@@ -120,8 +151,8 @@ const OurValues = () => {
               {values.map((value, index) => (
                 <div key={index}>
                   <div className="border border-b border-black"></div>
-                  
-                  <div 
+
+                  <div
                     className="between cursor-pointer py-4"
                     onClick={() => toggleExpand(index)}
                   >
@@ -144,16 +175,27 @@ const OurValues = () => {
                     ref={(el) => {
                       contentRefs.current[index] = el;
                     }}
-                    className="overflow-hidden"
-                    style={{ height: 0, opacity: 0 }}
+                    className="grid grid-cols-[25%_auto] overflow-hidden opacity-0 h-0"
                   >
-                    <p className="text-2xl font-light py-8 pr-20">
-                      {value.description}
+                    <p className="text-xl font-semibold">
+                      {value.description1}
                     </p>
+                    <div className="flex flex-col gap-4 w-4/5">
+                      {" "}
+                      <p className="text-xl font-light ">
+                        {value.description2}
+                      </p>{" "}
+                      <p className="text-xl font-light ">
+                        {value.description3}
+                      </p>{" "}
+                      <p className="text-xl font-light ">
+                        {value.description4}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
-              
+
               <div className="border border-b border-black"></div>
             </div>
           </div>
